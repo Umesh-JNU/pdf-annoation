@@ -159,7 +159,7 @@ const PdfPage = () => {
           onMouseMove={mouseMoveHandler}
         ></canvas>
         <div style={{ zIndex: 0 }}>
-          <Document
+          {/* <Document
             file={`https://arxiv.org/pdf/${pdf}.pdf`}
             onLoadSuccess={onDocumentLoadSuccess}
           >
@@ -168,7 +168,7 @@ const PdfPage = () => {
               canvasRef={canvasRef}
               onLoadSuccess={canvasDimHandler}
             />
-          </Document>
+          </Document> */}
         </div>
         <div className="bottom-menu">
           <button
