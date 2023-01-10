@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -69,17 +69,20 @@ const PdfPage = () => {
       ? JSON.parse(localStorage.getItem("box"))
       : [];
 
-    localStorage.setItem("box", JSON.stringify([...data, {...newBox, pdf: pdf, pageNo: pageNumber}]));
-  }
+    localStorage.setItem(
+      "box",
+      JSON.stringify([...data, { ...newBox, pdf: pdf, pageNo: pageNumber }])
+    );
+  };
 
   const getAllBox = () => {
     const data = JSON.parse(localStorage.getItem("box")) || [];
-    // console.log(data); 
-    const boxes = data.filter(a => a.pdf === pdf && a.pageNo === pageNumber)
+    // console.log(data);
+    const boxes = data.filter((a) => a.pdf === pdf && a.pageNo === pageNumber);
     // console.log(boxes);
-    
+
     setBox(boxes);
-  }
+  };
   const mouseDownHandler = (e) => {
     if (!mouse.type) return;
 
@@ -90,7 +93,7 @@ const PdfPage = () => {
     }
   };
 
-  const drawBox = () => {
+  const drawBox = useCallback(() => {
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, width, height);
@@ -101,7 +104,7 @@ const PdfPage = () => {
       context.fillStyle = type;
       context.fill();
     });
-  };
+  });
 
   const mouseMoveHandler = (e) => {
     if (drawing && mouse.x1 && mouse.y1) {
@@ -146,8 +149,8 @@ const PdfPage = () => {
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-    if (box.length) drawBox(pageNumber);
-  }, [box, pageNumber, drawBox]);
+    if (box.length) drawBox();
+  }, [box, drawBox]);
 
   return (
     <div className="container">
