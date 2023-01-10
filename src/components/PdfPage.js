@@ -147,7 +147,7 @@ const PdfPage = () => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
     if (box.length) drawBox(pageNumber);
-  }, [box]);
+  }, [box, pageNumber, drawBox]);
 
   return (
     <div className="container">
