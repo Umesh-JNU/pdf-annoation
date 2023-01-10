@@ -145,7 +145,7 @@ const PdfPage = () => {
         </div>
         <div className="bottom-section">
           <div className="css-sub-heading">Boxes</div>
-          {box.length && box.map((bx, i) => <Box key={i} {...bx} />)}
+          {box.length ? box.map((bx, i) => <Box key={i} {...bx} />) : <></>}
         </div>
       </div>
       <div className="right">
