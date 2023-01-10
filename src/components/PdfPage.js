@@ -37,33 +37,6 @@ const PdfPage = () => {
     setPageNumber((prevPageNumber) => prevPageNumber + offset);
   }
 
-  {
-    /* async function getAllBox() {
-    const url = `/api/v1/get-box/?pdf=${pdf}&pageNo=${pageNumber}`;
-    // console.log(url);
-    try {
-      const { data } = await axios.get(url);
-      setBox([...data]);
-      // console.log("box", box);
-    } catch (err) {
-      console.log("Something went wrong");
-    }
-  }
-  async function insertBox(newBox) {
-    try {
-      const config = { headers: { "Content-Type": "application/json" } };
-
-      const { data } = await axios.post(
-        "/api/v1/insert-box",
-        { ...newBox, pdf, pageNo: pageNumber },
-        config
-      );
-    } catch (err) {
-      console.log("Something went wrong");
-    }
-  } */
-  }
-
   const insertBox = (newBox) => {
     const data = localStorage.getItem("box")
       ? JSON.parse(localStorage.getItem("box"))
@@ -104,7 +77,7 @@ const PdfPage = () => {
       context.fillStyle = type;
       context.fill();
     });
-  });
+  }, [box]);
 
   const mouseMoveHandler = (e) => {
     if (drawing && mouse.x1 && mouse.y1) {
