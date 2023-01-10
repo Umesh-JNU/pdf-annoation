@@ -77,7 +77,7 @@ const PdfPage = () => {
       context.fillStyle = type;
       context.fill();
     });
-  }, [box]);
+  }, [box, width, height]);
 
   const mouseMoveHandler = (e) => {
     if (drawing && mouse.x1 && mouse.y1) {
